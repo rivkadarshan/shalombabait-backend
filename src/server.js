@@ -1,4 +1,4 @@
-const app = require('./app');
+const app = require('../app');
 const {deleteAllDBTables, deleteAllData,insertData,createManager} = require('./services/sql/sql-helpers');
 const { connectSql } = require('./services/sql/sql-connection');
 const { buildingDBTables } = require('./services/sql/sql-init');

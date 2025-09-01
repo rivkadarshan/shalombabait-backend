@@ -1,9 +1,18 @@
-const router = require('express').Router();
-const controller = require('./user.controller');
-const validate = require('../../middlewares/validate');
-const { createUserSchema } = require('./user.validation');
+import express from 'express';
+import { createUser } from './user.controller.js';
 
-router.post('/', validate(createUserSchema), controller.create);
-router.get('/:id', controller.getById);
+const router = express.Router();
 
-module.exports = router;
+router.post('/', createUser);
+
+export default router;
+
+// const router = require('express').Router();
+// const controller = require('./user.controller');
+// const validate = require('../../middlewares/validate');
+// const { createUserSchema } = require('./user.validation');
+
+// router.post('/', validate(createUserSchema), controller.create);
+// router.get('/:id', controller.getById);
+
+// module.exports = router;

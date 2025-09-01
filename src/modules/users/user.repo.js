@@ -1,12 +1,24 @@
-const db = require('../../db/knex');
+import pool from "../../services/database.js";
+// export async function createUser(name, email, hashedPassword) {
+//   const [result] = await pool
+//     // .promise()
+//     .query('INSERT INTO Users (name, email, password) VALUES (?, ?, ?)', [
+//       name,
+//       email,
+//       hashedPassword,
+//     ]);
+//   return result.insertId;
+// }
+export async function createUser(name, email, hashedPassword) {
+  const [result] = await pool.query(
+    'INSERT INTO Users (name, email, password) VALUES (?, ?, ?)',
+    [name, email, hashedPassword]
+  );
+  return result.insertId;
+}
 
-const create = async ({ email, fullName }) => {
-  const [id] = await db('users').insert({ email, full_name: fullName });
-  return id;
-};
+// const findById = (id) => db('users').where({ id }).first();
 
-const findById = (id) => db('users').where({ id }).first();
+// const findByEmail = (email) => db('users').where({ email }).first();
 
-const findByEmail = (email) => db('users').where({ email }).first();
-
-module.exports = { create, findById, findByEmail };
+// module.exports = { createUser, findById, findByEmail };
