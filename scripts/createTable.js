@@ -1,4 +1,5 @@
-import pool from "../src/services/database";
+import pool from "../src/services/database.js";
+
 // פונקציה כללית שמקבלת SQL של CREATE TABLE ומריצה אותו
 async function createTable(sql) {
   try {
@@ -13,16 +14,24 @@ async function createTable(sql) {
 const usersTableSQL = `
 CREATE TABLE IF NOT EXISTS Users (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+  first_name VARCHAR(15) NOT NULL,
+  last_name VARCHAR(20) NOT NULL,
+  teudat_zehut VARCHAR(10), 
+  phone VARCHAR(20) NOT NULL,
+  city VARCHAR(15) NOT NULL,
+  address VARCHAR(30),
+  email VARCHAR(30) NOT NULL UNIQUE,
+  password VARCHAR(15) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  agree TINYINT(1) DEFAULT 0
+);
 `;
 
 // קריאה לפונקציה
 createTable(usersTableSQL);
-
+console.log('USER:', process.env.MYSQL_USER);
+console.log('PASSWORD:', process.env.MYSQL_PASSWORD);
+console.log('DB:', process.env.MYSQL_DATABASE);
 // // דוגמה נוספת: טבלת Products
 // const productsTableSQL = `
 // CREATE TABLE IF NOT EXISTS Products (
