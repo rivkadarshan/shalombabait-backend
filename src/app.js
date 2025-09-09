@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import usersRouter from './modules/users/user.routes.js';
 import emailRoutes from './modules/email/email.routes.js';
+import conferenceRoutes from './modules/conferences/conferences.routes.js';
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/email', emailRoutes);
+app.use('/api/conferences', conferenceRoutes); // <<< חדש
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 

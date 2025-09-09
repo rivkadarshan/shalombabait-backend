@@ -64,9 +64,21 @@ const addColumnInTherapistsTableSQL = `
     ADD FOREIGN KEY (patient_id) REFERENCES patients(patient_id
 );`;
 
+const therapistToVideoTableSQL = `
+  CREATE TABLE IF NOT EXISTS therapist_videos (
+    video_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    video_url VARCHAR(255) NOT NULL,
+    year INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+  );
+`;
+
+
 // ליצירת הטבלאות בSQL יש להסיר את ההערות מהשורות אחת אחרי השניה לפי הסדר ולהריץ כל פעם עם שורה אחת!
 // createTable(usersTableSQL);
 // createTable(paymentsTableSQL);
 // createTable(therapistsTableSQL);
 // createTable(patientsTableSQL);
 // createTable(addColumnInTherapistsTableSQL);
+createTable(therapistToVideoTableSQL);
