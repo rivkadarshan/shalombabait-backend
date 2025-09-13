@@ -1,6 +1,5 @@
 import pool from "../src/services/database.js";
 
-// פונקציה כללית שמקבלת SQL של CREATE TABLE ומריצה אותו
 async function createTable(sql) {
   try {
     await pool.query(sql);
@@ -46,8 +45,7 @@ const therapistsTableSQL = `
   CREATE TABLE IF NOT EXISTS Therapists (
     therapist_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNIQUE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (pay_id) REFERENCES payments(pay_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
   );
 `;
 
@@ -61,7 +59,7 @@ const patientsTableSQL = `
     status ENUM('פעיל', 'לא פעיל', 'בהמתנה') NOT NULL DEFAULT 'פעיל',
     history_notes varchar(500),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (therapist_id) REFERENCES therapists(therapist_id),
+    FOREIGN KEY (therapist_id) REFERENCES therapists(therapist_id)
   );
 `;
 
@@ -70,18 +68,18 @@ const appointmentsTableSQL = `
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     therapist_id INT NOT NULL, 
     patient_id INT NOT NULL,  
-    treatment_type_id INT NOT NULL, 
+    type_id INT NOT NULL, 
     room_id INT NOT NULL, 
     appointment_date DATE NOT NULL, 
     start_time TIME NOT NULL, 
     end_time TIME NOT NULL, 
-    total_minutes INT AS (TIMESTAMPDIFF(MINUTE, start_time, end_time)) STORED
-    status ENUM('מתוזמנת', 'הושלמה', 'בוטלה') NOT NULL DEFAULT 'מתוזמנת' ,
+    total_minutes INT AS (TIMESTAMPDIFF(MINUTE, start_time, end_time)) STORED,
+    status ENUM('מתוזמנת', 'הושלמה', 'בוטלה') NOT NULL DEFAULT 'מתוזמנת',
     FOREIGN KEY (therapist_id) REFERENCES therapists(therapist_id),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
-    FOREIGN KEY (treatment_type_id) REFERENCES TreatmentTypes(treatment_type_id),
+    FOREIGN KEY (type_id) REFERENCES TreatmentTypes(type_id),
     FOREIGN KEY (room_id) REFERENCES Rooms(room_id)
-    );
+  );
 `;
 
 const paymentsTableSQL = `
@@ -90,8 +88,8 @@ const paymentsTableSQL = `
     appointment_id INT,
     amount DECIMAL(10, 2) NOT NULL,
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    method ENUM('כרטיס אשראי', 'העברה בנקאית', 'מזומן') NOT NULL
-    FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id
+    method ENUM('כרטיס אשראי', 'העברה בנקאית', 'מזומן') NOT NULL,
+    FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id)
   );
 `;
 
@@ -107,11 +105,11 @@ const therapistToVideoTableSQL = `
 `;
 
 // ליצירת הטבלאות בSQL יש להסיר את ההערות מהשורות אחת אחרי השניה לפי הסדר ולהריץ כל פעם עם שורה אחת!
-createTable(usersTableSQL);
+// createTable(usersTableSQL);
 // createTable(treatmentTypesTableSQL);
 // createTable(roomsTableSQL);
 // createTable(therapistsTableSQL);
 // createTable(patientsTableSQL);
 // createTable(appointmentsTableSQL);
 // createTable(paymentsTableSQL);
-// createTable(therapistToVideoTableSQL);
+createTable(therapistToVideoTableSQL);
