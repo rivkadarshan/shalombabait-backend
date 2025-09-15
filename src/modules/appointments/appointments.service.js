@@ -1,4 +1,4 @@
-import { create, checkTimeConflict } from "./appointments.repo.js";
+import { create, checkTimeConflict,getAppointmentsByPatientAndTherapist } from "./appointments.repo.js";
 import pool from "../../services/database.js";
 
 export async function createAppointment(appointmentData) {
@@ -71,4 +71,9 @@ export async function createAppointment(appointmentData) {
   } catch (error) {
     throw error;
   }
+}
+
+
+export async function fetchAppointments(patientId, therapistId) {
+  return await getAppointmentsByPatientAndTherapist(patientId, therapistId);
 }

@@ -1,4 +1,4 @@
-import { createAppointment } from "./appointments.service.js";
+import { createAppointment,fetchAppointments } from "./appointments.service.js";
 
 export async function createAppointmentController(req, res) {
   try {
@@ -57,5 +57,16 @@ export async function createAppointmentController(req, res) {
       success: false,
       message: error.message
     });
+  }
+}
+
+export async function getAppointments(req, res) {
+  try {
+    const { patientId, therapistId } = req.params;
+    const appointments = await fetchAppointments(patientId, therapistId);
+    res.json(appointments);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching appointments" });
   }
 }
