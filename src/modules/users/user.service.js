@@ -1,5 +1,5 @@
 import { createUser } from './user.repo.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export async function addUser(userData) {
   const { name, email, password } = userData;
